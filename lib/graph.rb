@@ -5,17 +5,13 @@ class Graph
 
   #num_vertex: number of vertex on the graph
   #edge_list: ['AB5', 'AC2', ...]
-  def initialize num_vertex, edge_list
-    @vertexes = []
-    @graph_matrix = MutableMatrix.build(num_vertex) { nil }
+  def initialize vertexes, edge_list
+    @vertexes = vertexes
+    @graph_matrix = MutableMatrix.build(vertexes.length) { nil }
 
-    edge_list.each do |item|
-      item[0..1].split('').each do |letter|
-        vertexes.push(letter) if vertexes.index(letter).nil?
-      end
-
-      @graph_matrix[vertexes.index(item[0]),
-                    vertexes.index(item[1])] = item[2].to_i
+    edge_list.each do |edge|
+      @graph_matrix[vertexes.index(edge[0]),
+                    vertexes.index(edge[1])] = edge[2..-1].to_i
     end
 
   end
@@ -26,10 +22,25 @@ class Graph
     j = @vertexes.index(j_s)
 
     if i != j && !i.nil? && !j.nil?
-      @graph_matrix[i, j]
+      return @graph_matrix[i, j]
     else
-      nil
+      return nil
     end
+  end
+
+  def from vertex
+    source_vertex = @vertexes.index(vertex)
+    raise "INVALID VERTEX" if source_vertex.nil?
+
+    out = []
+    index = 0
+    @graph_matrix.row(source_vertex).each do |adjacent_weight|
+      out.push @vertexes[index] if !adjacent_weight.nil?
+
+      index += 1
+    end
+
+    return out
   end
 
 

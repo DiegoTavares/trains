@@ -3,7 +3,7 @@ require_relative '../graph_oper.rb'
 describe GraphOper do
 
   before :each do
-    @graph_oper = GraphOper.new "AB5 BC2 AD3 DB6"
+    @graph_oper = GraphOper.new ["AB5", "BC2", "AD1", "DB1", "BA10"]
   end
 
   describe "#new" do
@@ -23,19 +23,20 @@ describe GraphOper do
   end
 
   describe "#route_distance" do
-    it "measure the distance of route AB" do
+    it "measure the distance of route size 2" do
       expect(@graph_oper.route_distance("AB")).to eq 5
     end
 
-    it "measure the distance of route ABC" do
+    it "measure the distance of route size 3" do
       expect(@graph_oper.route_distance("ABC")).to eq 7
     end
 
-    it "measure the distance of route ADA" do
-      expect(@graph_oper.route_distance("ADBC")).to eq 11
+    it "measure the distance of route size 4" do
+      expect(@graph_oper.route_distance("ADBC")).to eq 4
+      expect(@graph_oper.route_distance("ABA")).to eq 15
     end
 
-    it "cannot measure the distance of route ABD" do
+    it "cannot measure the distance of unexisting route" do
       expect(@graph_oper.route_distance("ABD")).to eq nil
     end
 
@@ -45,4 +46,15 @@ describe GraphOper do
 
   end
 
+  describe "#shortest_route" do
+    it "obtains the shortest distance between 2 vertexes" do
+      expect(@graph_oper.shortest_route "AC").to eq 4
+      expect(@graph_oper.shortest_route "AB").to eq 2
+      expect(@graph_oper.shortest_route "DC").to eq 3
+    end
+
+    it "obtains the shortest distance between 1 vertex cicle" do
+      expect(@graph_oper.shortest_route "AA").to eq 12
+    end
+  end
 end
