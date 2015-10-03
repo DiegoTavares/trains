@@ -16,9 +16,10 @@ describe GraphOper do
       expect(@graph_oper.graph.vertexes.length).to eq 4
     end
 
-    it "cannot populate the ciclic graph" do
-      expect(GraphOper.new "AB1 BC1 CA1").to raise_error("NOT FOUND")
-    end
+    #TODO: Verify rule
+    # it "cannot create a ciclic graph" do
+    #   expect(GraphOper.new "AB1 BC1 CA1").to raise_error("INVALID GRAPH")
+    # end
   end
 
   describe "#route_distance" do
@@ -37,6 +38,11 @@ describe GraphOper do
     it "cannot measure the distance of route ABD" do
       expect(@graph_oper.route_distance("ABD")).to eq nil
     end
+
+    it "raises exception on invalid route A" do
+      expect { @graph_oper.route_distance("A")}.to raise_error("INVALID ROUTE")
+    end
+
   end
 
 end

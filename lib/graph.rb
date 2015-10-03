@@ -20,6 +20,7 @@ class Graph
 
   end
 
+  #returns the weigh of the edge between vertex i_s and j_s (strings)
   def [] (i_s, j_s)
     i = @vertexes.index(i_s)
     j = @vertexes.index(j_s)
