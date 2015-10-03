@@ -7,11 +7,16 @@ describe GraphOper do
   end
 
   describe "#new" do
-    it "populates the graph" do
-      expect(@graph_oper.graph.length).to eq 4
+    it "creates the graph_oper" do
+      expect(@graph_oper).to be_instance_of(GraphOper)
     end
 
-    it "cannot populate the graph" do
+    it "creates the graph_oper graph" do
+      expect(@graph_oper.graph).to be_instance_of(Graph)
+      expect(@graph_oper.graph.vertexes.length).to eq 4
+    end
+
+    it "cannot populate the ciclic graph" do
       expect(GraphOper.new "AB1 BC1 CA1").to raise_error("NOT FOUND")
     end
   end
