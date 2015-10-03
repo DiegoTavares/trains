@@ -1,7 +1,13 @@
+require_relative 'graph'
 
-class Graph_oper
+class GraphOper
+  attr_accessor :graph
 
-  def initilize graph_string
+  def initialize graph_string
+    @graph = Graph.new graph_string.split(' ')
+  end
+
+  def route_distance route
 
   end
 end
