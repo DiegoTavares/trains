@@ -3,15 +3,15 @@ require_relative 'graph'
 class GraphOper
   attr_accessor :graph
 
-  #graph_string: string with the graph and weights, like AB5 BC2 AD3 DB6
+  #edge_list: string with the graph and weights, like AB5 BC2 AD3 DB6
   def initialize edge_list
     vertexes = []
-
     edge_list.each do |edge|
       edge.strip[0..1].split('').each do |char|
         vertexes.push(char) if vertexes.index(char).nil?
       end
     end
+
     @graph = Graph.new vertexes, edge_list
   end
 
@@ -20,7 +20,6 @@ class GraphOper
   def route_distance route
     distance = 0
     raise "INVALID ROUTE" if route.length < 2
-
     #walk the route
     route[0..-2].split("").each_index do |v_index|
       #take slots of size 2
@@ -36,11 +35,9 @@ class GraphOper
   end
 
   #Dijkstra Algotrithm
-  def shortest_route from_to
-    source = from_to[0]
-    target = from_to[1]
-
+  def shortest_route source, target
     nodes = Hash.new
+    #fill nodes hash with vertexes and INFINITY weights and mark them as not visited
     @graph.vertexes.collect { |x| nodes[x] = {
                                     :value => Float::INFINITY,
                                     :visited => false } }
@@ -49,10 +46,11 @@ class GraphOper
 
     until nodes.select{|k,v| v[:visited] == false}.empty?
       nodes[current][:visited] = true
-      # puts "nodes #{nodes}"
-      # puts "current = #{current}"
+
       @graph.from(current).each do |vertex|
         dist = @graph[current, vertex] + nodes[current][:value]
+        #update the distance of 0 valued nodes to allow cicles starting and ending
+        # on the same node
         if dist < nodes[vertex][:value] || nodes[vertex][:value] == 0
           nodes[vertex][:value] = dist
         end
@@ -65,20 +63,29 @@ class GraphOper
     return nodes[target][:value]
   end
 
+  #Returns the number of routes between :source and :target
+  # with a distance lower than :max_distance
   def num_routes_distance_less source, target, max_distance
     num_routes source, target, max_distance -1
   end
 
+  #Returns the number of routes between :source and :target
+  # with a number of stops lower than :num_stops
   def num_routes_max_stops source, target, num_stops
     num_routes source, target, num_stops, false, false
   end
 
+  #Returns the number of routes between :source and :target
+  # with a number of stops equals :num_stops
   def num_routes_exact_stops source, target, num_stops
     num_routes source, target, num_stops, true, false
   end
 
   #Dinamic Programming
-  #Compute the distance of each size of route lower than max_distance
+  #Calculates the distance of each size of route between :source and :target
+  # lower than or equals to :max_distance
+  # uses_exact: true to restrict routes with distance equals to :max_distance
+  # uses_distance: false to calculate stops
   def num_routes source, target, max_distance,
                       uses_exact = false,
                       uses_distance = true

@@ -7,7 +7,7 @@ describe GraphOper do
   end
 
   describe "#new" do
-    it "creates the graph_oper" do
+    it "creates a graph_oper" do
       expect(@graph_oper).to be_instance_of(GraphOper)
     end
 
@@ -48,13 +48,13 @@ describe GraphOper do
 
   describe "#shortest_route" do
     it "obtains the shortest distance between 2 vertexes" do
-      expect(@graph_oper.shortest_route "AC").to eq 4
-      expect(@graph_oper.shortest_route "AB").to eq 2
-      expect(@graph_oper.shortest_route "DC").to eq 3
+      expect(@graph_oper.shortest_route "A", "C").to eq 4
+      expect(@graph_oper.shortest_route "A", "B").to eq 2
+      expect(@graph_oper.shortest_route "D", "C").to eq 3
     end
 
     it "obtains the shortest distance between 1 vertex cicle" do
-      expect(@graph_oper.shortest_route "AA").to eq 12
+      expect(@graph_oper.shortest_route "A", "A").to eq 12
     end
   end
 

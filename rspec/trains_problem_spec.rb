@@ -1,35 +1,35 @@
-require_relative 'spec_helper'
+require_relative '../trains_problem'
 
-describe Main do
+describe TrainsProblem do
 
   before :each do
-    @main = Main.new "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7"
+    @trains_problem = TrainsProblem.new "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7"
   end
 
   describe "#new" do
     it "returns a main instance" do
-      expect(@main).to be_instance_of Main
+      expect(@trains_problem).to be_instance_of TrainsProblem
     end
 
     it "creates a graph operator" do
-      expect(@main.graph_oper.graph.vertexes.length).to eq 5
+      expect(@trains_problem.graph_oper.graph.vertexes.length).to eq 5
     end
   end
 
   describe "#execute" do
     it "returns the output list" do
-      expect(@main.execute).to eq [9, 5, 13, 22, nil, 2, 3, 9, 9, 7]
+      expect(@trains_problem.execute).to eq [9, 5, 13, 22, nil, 2, 3, 9, 9, 7]
     end
   end
 
   describe "#to_s" do
     it "returns an empty string before execution" do
-      expect(@main.to_s).to eq ""
+      expect(@trains_problem.to_s).to eq ""
     end
 
     it "return an output string after the execution" do
-      @main.execute
-      expect(@main.to_s.gsub(/\s+/, "")).to eq "Output #1: 9
+      @trains_problem.execute
+      expect(@trains_problem.to_s.gsub(/\s+/, "")).to eq "Output #1: 9
                                                 Output #2: 5
                                                 Output #3: 13
                                                 Output #4: 22

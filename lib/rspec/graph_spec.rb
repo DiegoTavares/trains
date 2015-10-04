@@ -8,6 +8,10 @@ describe Graph do
   end
 
   describe "#new" do
+    it "creates a graph" do
+      expect(@graph).to be_instance_of(Graph)
+    end
+
     it "populates the graph_matrix with weights" do
       expect(@graph.vertexes.length).to eq 4
     end

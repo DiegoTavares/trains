@@ -28,6 +28,10 @@ class Graph
     end
   end
 
+  # returns the vertexes that receive edges from :source
+  # returns [] no edges
+  # raises "INVALID VERTEX" for invalid vertex id
+  #  source: Char id of the vertex
   def from source
     source_vertex = @vertexes.index(source)
     raise "INVALID VERTEX" if source_vertex.nil?
