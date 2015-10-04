@@ -28,16 +28,16 @@ class Main
   def execute
     @output = []
 
-    @output.push @graph_oper.route_distance "ABC"     #1
-    @output.push @graph_oper.route_distance "AD"      #2
-    @output.push @graph_oper.route_distance "ADC"     #3
-    @output.push @graph_oper.route_distance "AEBCD"   #4
-    @output.push @graph_oper.route_distance "AED"     #5
-    @output.push ""                                   #6
-    @output.push ""                                   #7
-    @output.push @graph_oper.shortest_route "AC"      #8
-    @output.push @graph_oper.shortest_route "BB"      #9
-    @output.push ""                                   #10
+    @output.push @graph_oper.route_distance "ABC"                       #1
+    @output.push @graph_oper.route_distance "AD"                        #2
+    @output.push @graph_oper.route_distance "ADC"                       #3
+    @output.push @graph_oper.route_distance "AEBCD"                     #4
+    @output.push @graph_oper.route_distance "AED"                       #5
+    @output.push @graph_oper.num_routes_max_stops "C", "C", 3           #6
+    @output.push @graph_oper.num_routes_exact_stops "A", "C", 4         #7                                       #7
+    @output.push @graph_oper.shortest_route "AC"                        #8
+    @output.push @graph_oper.shortest_route "BB"                        #9
+    @output.push @graph_oper.num_routes_distance_less "C", "C", 30      #10
 
     @output
   end
@@ -46,7 +46,14 @@ class Main
     out_s = ""
     if !@output.nil?
       @output.each_index do |out_index|
-        out_s += "Output\##{out_index+1}: #{@output[out_index]}"
+        out_value = @output[out_index]
+
+        #For test input 1 through 5, if no such route exists, output 'NO SUCH ROUTE'
+        if out_value.nil? && out_index.between?(0, 4)
+          out_value = "NO SUCH ROUTE"
+        end
+
+        out_s += "Output\##{out_index+1}: #{out_value}"
       end
     end
 

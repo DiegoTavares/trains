@@ -28,15 +28,14 @@ class Graph
     end
   end
 
-  def from vertex
-    source_vertex = @vertexes.index(vertex)
+  def from source
+    source_vertex = @vertexes.index(source)
     raise "INVALID VERTEX" if source_vertex.nil?
 
     out = []
     index = 0
     @graph_matrix.row(source_vertex).each do |adjacent_weight|
       out.push @vertexes[index] if !adjacent_weight.nil?
-
       index += 1
     end
 

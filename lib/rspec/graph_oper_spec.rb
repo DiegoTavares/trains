@@ -57,4 +57,48 @@ describe GraphOper do
       expect(@graph_oper.shortest_route "AA").to eq 12
     end
   end
+
+  describe "#num_routes" do
+    it "obtains the number of routes from X to Y with distance equal or lower than" do
+      expect(@graph_oper.num_routes 'A', 'C', 10).to eq 2
+      expect(@graph_oper.num_routes 'A', 'B', 20).to eq 6
+      expect(@graph_oper.num_routes 'A', 'D', 30).to eq 6
+      expect(@graph_oper.num_routes 'A', 'A', 24).to eq 3
+    end
+
+    it "obtains the number of routes from X to X with distance equal or lower than" do
+      expect(@graph_oper.num_routes 'A', 'A', 24).to eq 3
+    end
+  end
+
+  describe "#num_routes_distance_less" do
+    it "obtains the number of routes with distance lower than" do
+      expect(@graph_oper.num_routes_distance_less 'A', 'A', 24).to eq 2
+    end
+  end
+
+  describe "#num_routes_max_stops" do
+    it "obtains the number of routes from X to Y with num stops equal or lower than" do
+      expect(@graph_oper.num_routes_max_stops 'A', 'B', 3).to eq 3
+    end
+
+    it "obtains the number of routes from X to X with num stops equal or lower than" do
+      expect(@graph_oper.num_routes_max_stops 'A', 'A', 4).to eq 3
+    end
+  end
+
+  describe "#num_routes_exact_stops" do
+    it "obtains the number of routes from X to Y with num stops equal to" do
+      expect(@graph_oper.num_routes_exact_stops 'A', 'B', 3).to eq 1
+    end
+
+    it "obtains the number of routes from X to X with num stops equal to" do
+      expect(@graph_oper.num_routes_exact_stops 'A', 'A', 5).to eq 2
+    end
+  end
+
+
+
+  describe
+
 end

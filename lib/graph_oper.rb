@@ -65,5 +65,53 @@ class GraphOper
     return nodes[target][:value]
   end
 
+  def num_routes_distance_less source, target, max_distance
+    num_routes source, target, max_distance -1
+  end
+
+  def num_routes_max_stops source, target, num_stops
+    num_routes source, target, num_stops, false, false
+  end
+
+  def num_routes_exact_stops source, target, num_stops
+    num_routes source, target, num_stops, true, false
+  end
+
+  #Dinamic Programming
+  #Compute the distance of each size of route lower than max_distance
+  def num_routes source, target, max_distance,
+                      uses_exact = false,
+                      uses_distance = true
+
+    route_dist_arr = Array.new(max_distance+1) {{}}
+
+    #for each possible distance
+    for curr_dist in 0..max_distance
+      #for each source vertex
+      @graph.vertexes.each do |vertex|
+
+        counter = 0
+        #for each edge
+        @graph.from(vertex).each do |target_vertex|
+          edge_dist = uses_distance ? @graph[vertex, target_vertex] : 1
+
+          if edge_dist <= curr_dist
+            counter += route_dist_arr[curr_dist - edge_dist][target_vertex]
+          end
+        end
+
+        if vertex == target && (curr_dist == 0 || !uses_exact)
+          counter += 1
+        end
+        #puts "curr_dist = #{curr_dist}"
+        #puts "vertex = #{vertex}"
+        route_dist_arr[curr_dist][vertex] = counter
+        #puts "counter = #{counter}"
+      end
+    end
+    out = route_dist_arr[max_distance][source]
+
+    return (source == target && !uses_exact) ? out -1 : out
+  end
 
 end

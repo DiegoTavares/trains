@@ -27,7 +27,7 @@ describe Graph do
       expect(@graph.from('C')).to eq []
     end
 
-    it "returns the list of vertexes that receives edges" do
+    it "returns the list of vertexes that receives edges from source" do
       expect(@graph.from('A')).to eq ['B', 'D']
       expect(@graph.from('B')).to eq ['C']
       expect(@graph.from('D')).to eq ['B']
