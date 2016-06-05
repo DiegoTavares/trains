@@ -19,7 +19,7 @@ The number of trips starting at A and ending at C with exactly 4 stops.  In the 
 The length of the shortest route (in terms of distance to travel) from A to C.
 The length of the shortest route (in terms of distance to travel) from B to B.
 The number of different routes from C to C with a distance of less than 30.  In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC.
- 
+
 Test Input:
 For the test input, the towns are named using the first few letters of the alphabet from A to D.  A route between two towns (A to B) with a distance of 5 is represented as AB5.
 Graph: AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
